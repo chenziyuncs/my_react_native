@@ -1,0 +1,13 @@
+[
+  {
+    "path": "hot",
+    "name": "最热",
+    "short_name": "hot",
+    "checked": true
+  },
+  {
+    "path": "trending",
+    "name": "趋势",
+    "checked": true
+  }
+]

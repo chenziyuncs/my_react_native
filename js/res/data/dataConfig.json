@@ -1,0 +1,90 @@
+{
+  "aboutMe": {
+    "Tutorial": {
+      "name": "教程",
+      "icon": "ios-bookmarks",
+      "items": [
+        {
+          "title": "React Native 基础教程",
+          "url": "https://m.imooc.com/learn/808"
+        },
+        {
+          "title": "React Native 高级实战教程",
+          "url": "https://coding.m.imooc.com/clasindex.html?cid=89"
+        }
+      ]
+    },
+    "Blog": {
+      "name": "技术博客",
+      "icon": "ios-laptop-outline",
+      "items": [
+        {
+          "title": "个人博客",
+          "url": "https://jiapenghui.com"
+        },
+        {
+          "title": "CSDN",
+          "url": "https://blog.csdn.net/fengyuzhengfan"
+        },
+        {
+          "title": "简书",
+          "url": "https://jianshu.com/users/cs3943a4172a/latest_articles"
+        },
+        {
+          "title": "GitHub",
+          "url": "https://github.com/crazycodeboy"
+        },
+        {
+          "title": "CSDN",
+          "url": "https://www.imooc.com/u/4951150"
+        }
+      ]
+    },
+    "contact": {
+      "name": "联系方式",
+      "icon": "ios-people-circle",
+      "items": {
+        "QQ": {
+          "title": "QQ",
+          "account": "76058789"
+        },
+        "Email": {
+          "title": "Eamil",
+          "account": "15060530705@163.com"
+        }
+      }
+    },
+    "QQ": {
+      "name": "技术交流群",
+      "icon": "ios-chatbubbles",
+      "items": [
+        {
+          "title": "移动开发者技术分享群",
+          "account": "335939197"
+        },
+        {
+          "title": "React Native 学习交流群",
+          "account": "165774887"
+        }
+      ]
+    }
+  },
+  "info": {
+    "html_url": "https://github.com/crazycodeboy/",
+    "url": "https:/api.github.com/repos/crazycodeboy/",
+    "currentRepoUrl": "https://api.github.com/repos/crazycodeboy/GitHubPopular"
+  },
+  "author": {
+    "name": "ChenZiyun",
+    "description": "专注于移动开发，分享知识，共享快乐",
+    "avatar": "https://avatar.csdn.net/1/1/E/1_fengyuzhengfan.jpg",
+    "backgroundImg": "https://www.devio.org/io/GitHubPopular/img/for_githubpopular_about_me.jpg",
+    "url": "http://www.devio.org/"
+  },
+  "app": {
+    "name": "GitHub Popular",
+    "description": "这是一个用来查看github最受欢迎与最热项目的app，它基于React-Native支持Android和IOS双平台",
+    "avatar": "https://www.devio.org/io/GitHubPopular/img/ic_app.png",
+    "backgroundImg": "https://www.devio.org/io/GitHubPopular/img/for_githubpopular_about_me.jpg"
+  }
+}
