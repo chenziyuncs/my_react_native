@@ -19,7 +19,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import NavigationUtil from '../navigator/NavigationUtil';
 import {FLAG_STORAGE} from '../expand/dao/DataStore';
 import FavoriteDao from '../expand/dao/FavoriteDao'
-import FavoriteUtil from '../util/FavoriteUtil';
 const favoriteDao = new FavoriteDao('trending')
 flagIndex = 1
 class TrendingPage extends Component {
@@ -31,10 +30,8 @@ class TrendingPage extends Component {
     }
   }
   componentDidMount () {
-    if (this.props.keysAndLanglength === 0) {
-      const { onLoadKeysAndLang } = this.props;
-      onLoadKeysAndLang(this.state.lang ,'lang')
-    }
+    const { onLoadKeysAndLang } = this.props;
+    onLoadKeysAndLang(this.state.lang ,'lang')
   }
   renderTitleView() {
     return <View>

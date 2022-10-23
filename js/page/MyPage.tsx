@@ -43,7 +43,7 @@ function MyPage(props: any){
     })
   }
   const _onClick = (menu: any) => {
-    let routeName = null;
+    let routeName: string | null = null;
     let params = {theme: theme} as any;
     switch (menu) {
       case MORE_MENU.Tutorial:
@@ -60,11 +60,13 @@ function MyPage(props: any){
         routeName = 'AboutMePage'
         break;
       case MORE_MENU.Custom_Language:
+      case MORE_MENU.Custom_Key:
+      case MORE_MENU.Remove_Key:
         routeName = 'CustomKeyPage';
         params = {
-          flag: 'key',
-          isRemove: false,
-          title: '自定义语言'
+          flag: menu !== MORE_MENU.Custom_Language ? 'key' : 'lang',
+          isRemove: menu === MORE_MENU.Remove_Key ? true : false,
+          title: menu !== MORE_MENU.Custom_Language ? '自定义标签' : '自定义语言'
         }
         break;
     }

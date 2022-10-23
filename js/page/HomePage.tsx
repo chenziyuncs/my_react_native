@@ -7,6 +7,7 @@ import {
 import DynamicTabNavigator from '../navigator/DynamicTabNavigator';
 import { connect } from 'react-redux';
 import SafeSreaViewPlus from '../common/SafeAreaVIewPlus.js'
+
 // export default (props) => {
 //   //方便其他页面跳转的时候不传navigation
 //   NavigationUtil.navigation = props.navigation;
@@ -29,6 +30,7 @@ class HomePage extends Component<Props> {
     const { theme } = this.props;
     NavigationUtil.navigation = this.props.navigation;
     return <SafeSreaViewPlus topColor={theme.themeColor}>
+      
       <DynamicTabNavigator />
     </SafeSreaViewPlus>
   }

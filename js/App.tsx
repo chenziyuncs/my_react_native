@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import AppNavigator from './navigator/AppNaviatos';
 import store, { persistor } from './store';
 import { PersistGate } from 'redux-persist/lib/integration/react'
+import PopUp from './common/PopUp'
+import PopUpsService from './util/PopUpservice'
 
 const App = () => {
   const App = AppNavigator();
@@ -33,7 +35,9 @@ const App = () => {
         // onBeforeLift={this.onBeforeLift}
         persistor={persistor}
         >
-        {App}
+          {App}
+          <PopUp ref={(PopRef: any) => PopUpsService.setTopLevelPop(PopRef)}></PopUp>
+        
       </PersistGate>
     
   </Provider>;

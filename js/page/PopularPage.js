@@ -25,10 +25,8 @@ class PopularPage extends Component {
     }
   }
   componentDidMount() {
-    if (this.props.keysAndLanglength === 0) {
-      const { onLoadKeysAndLang } = this.props;
-      onLoadKeysAndLang(this.state.keys ,'keys')
-    }
+    const { onLoadKeysAndLang } = this.props;
+    onLoadKeysAndLang(this.state.keys ,'keys')
   }
   render() {
     const themeColor = this.props.theme.themeColor || this.props.theme;
