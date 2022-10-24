@@ -149,11 +149,11 @@ class FavoriteTab extends Component<Props>{
     const { updateOnLoadFavoriteData } = this.props
     const type = this.storeName === 'popular' ? 'CLICK_POUPULAR_FAVORITE' : 'CLICK_TRENDING_FAVORITE'
     updateOnLoadFavoriteData(this.storeName, data.flagType, [data], isFavorite, type)
-    if (this.storeName === 'popular') {
-      EventBus.getInstance().fireEvent(EventTypes.favorite_changed_popular)
-    } else {
-      EventBus.getInstance().fireEvent(EventTypes.favorite_changed_trending)
-    }
+    // if (this.storeName === 'popular') {
+    //   EventBus.getInstance().fireEvent(EventTypes.favorite_changed_popular)
+    // } else {
+    //   EventBus.getInstance().fireEvent(EventTypes.favorite_changed_trending)
+    // }
   }
   _storeList () {
     const { favorite } = this.props;

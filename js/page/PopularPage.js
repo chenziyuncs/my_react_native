@@ -10,27 +10,23 @@ import PopularItem from '../common/PopularItem'
 import { connect } from 'react-redux';
 import action from '../action';
 import { tabNav } from '../navigator/NavigationDelegate';
-import keys from '../res/data/keys.json';
+import Utils from '../util/Utils'
 import Toast from '../common/Toast/index';
-import FavoriteDao from '../expand/dao/FavoriteDao'
 
-let favoriteDao = new FavoriteDao('popular')
 flagIndex = 1
 class PopularPage extends Component {
   constructor (props) {
     super(props)
-    let keysArr = this.props.keysAndLang.length !== 0 ? this.props.keysAndLang : keys
-    this.state= {
-      keys: keysArr
-    }
+    this.preKeys = this.props.keysAndLang.keys
   }
   componentDidMount() {
     const { onLoadKeysAndLang } = this.props;
-    onLoadKeysAndLang(this.state.keys ,'keys')
+    onLoadKeysAndLang([], 'keys')
   }
   render() {
     const themeColor = this.props.theme.themeColor || this.props.theme;
-    if (this.themeColor != themeColor) {//当主题变更的时候需要以新的主题色来创建TabNavigator
+    const { keys } = this.props.keysAndLang
+    if (this.themeColor != themeColor || !Utils.isEqual(this.preKeys, keys)) {//当主题变更的时候需要以新的主题色来创建TabNavigator
       this.themeColor = themeColor;
       this.TabNavigator = null;
     }
@@ -41,14 +37,13 @@ class PopularPage extends Component {
     //   />
     // );
     //通过复用TabNavigator来防止导航器频繁的创建，提升渲染效率
-    this.TabNavigator = this.TabNavigator ? this.TabNavigator : this.state.keys.length
+    this.TabNavigator = this.TabNavigator ? this.TabNavigator : keys.length
       ? tabNav({
         Component: PopularTabPage,
         theme: { themeColor: themeColor },
-        keys: this.state.keys,
+        keys: keys,
       })
       : null;
-
     return (
       <View style={styles.container}>
         {/* {navigationBar} */}
@@ -59,7 +54,7 @@ class PopularPage extends Component {
 }
 const mapPopularStateToProps = (state) => ({
   theme: state.theme.theme,
-  keysAndLang: state.keysAndLang.keys
+  keysAndLang: state.keysAndLang
 });
 const mapPopularStateToPage = (dispatch) => ({
   onLoadKeysAndLang: (arr, keys) => dispatch(action.onLoadKeysAndLang(arr, keys))

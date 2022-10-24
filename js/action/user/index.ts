@@ -32,6 +32,13 @@ export function logoutDispatch() {
   })
 }
 
+export function logoutMethods () {
+  return (dispatch: any) => new Promise((resolve, reject) => {
+    dispatch(setBoarding(''))
+    resolve('退出成功')
+  }).catch(() => {})
+}
+
 export function saveBoardingNew (userName: string, password: string) {
   return (dispatch: any) => new Promise((resolve, reject) => {
     const formData = new FormData();

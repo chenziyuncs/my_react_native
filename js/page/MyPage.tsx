@@ -35,11 +35,15 @@ function MyPage(props: any){
     setTheme(newTheme.themeColor)
   }
   const _onLoginoutClick = () => {
-    const { logoutDispatch } = props
-    logoutDispatch().then((res: any) => {
-      if (res.code === 200) {
-        NavigationUtil.login()
-      }
+    const { logoutDispatch, logoutMethods } = props
+    // logoutDispatch().then((res: any) => {
+    //   if (res.code === 200) {
+    //     NavigationUtil.login()
+    //   }
+    // })
+    logoutMethods().then((res: any) => {
+      console.log(res)
+      NavigationUtil.login()
     })
   }
   const _onClick = (menu: any) => {
@@ -64,7 +68,7 @@ function MyPage(props: any){
       case MORE_MENU.Remove_Key:
         routeName = 'CustomKeyPage';
         params = {
-          flag: menu !== MORE_MENU.Custom_Language ? 'key' : 'lang',
+          flag: menu !== MORE_MENU.Custom_Language ? 'keys' : 'lang',
           isRemove: menu === MORE_MENU.Remove_Key ? true : false,
           title: menu !== MORE_MENU.Custom_Language ? '自定义标签' : '自定义语言'
         }
@@ -147,7 +151,8 @@ const mapStateToFavorite = (state: any) => ({
 
 const mapDispatchToFavorite = (dispatch: any) => ({
   onThemeChange: (theme: any) => dispatch(action.onThemeChange(theme)),
-  logoutDispatch: () => dispatch(action.logoutDispatch())
+  logoutDispatch: () => dispatch(action.logoutDispatch()),
+  logoutMethods: () => dispatch(action.logoutMethods())
 })
 export default connect(mapStateToFavorite, mapDispatchToFavorite)(MyPage)
 

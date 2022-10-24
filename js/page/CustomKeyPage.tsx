@@ -6,69 +6,104 @@ import {
   TouchableOpacity,
   View,
   ScrollView
-} from 'react-native'
-import BackPressComponent from '../common/BackPressComponent.js'
-import { connect } from 'react-redux'
+} from 'react-native';
+import BackPressComponent from '../common/BackPressComponent.js';
+import { connect } from 'react-redux';
 import NavigationUtil from '../navigator/NavigationUtil.js';
 import NavigationBar from '../common/NavigationBar';
 import ViewUtil from '../util/ViewUtil.js';
-import SafeAreaVIewPlus from '../common/SafeAreaVIewPlus.js'
-import CheckBox from 'react-native-check-box'
+import SafeAreaVIewPlus from '../common/SafeAreaVIewPlus.js';
+import CheckBox from 'react-native-check-box';
 import GlobalStyles from '../config/GlobalStyles';
-import { showPop } from '../util/PopUpservice'
-
+import { showPop } from '../util/PopUpservice';
+import Ionicons from 'react-native-vector-icons/Ionicons.js';
+import action from '../action';
+import Utils from '../util/Utils.js'
 function CustomKeyPage (props: any) {
-  const [backPress, setBackPress] = useState(new BackPressComponent({ backPress: () => _onBackPress() }))
-  const [keysAndLangData, setKeysAndLangData] = useState(props.keysAndLang)
+  const [backPress, setBackPress] = useState(new BackPressComponent({ backPress: () => _onBackPress() }));
   const [theme, setTheme] = useState(props.theme.themeColor);
-  const [title, setTitle] = useState(props.route.params.title)
-  const [flag, setFlag] = useState(props.route.params.flag)
-  const [showList, setShowList] = useState([] as any)
+  const [title, setTitle] = useState(props.route.params.title);
+  const [flag, setFlag] = useState(props.route.params.flag);
+  const [isRemove, setIsRmeove] = useState(props.route.params.isRemove);
+  const _keys = (props: any, original?: any, state?: any) => {
+    if (isRemove && !original) {
+      //如果state中的keys为空则从props中取
+      return state && state[flag] && state[flag].length !== 0 && state[flag] || props.keysAndLang[flag].map((val: any) => {
+        return {//注意：不直接修改props，copy一份
+          ...val,
+          checked: false,
+        };
+      });
+    } else {
+      return props.keysAndLang[flag].map((val: any) => {
+        // 复制一份数据，和原本数据区分开，这样如果操作此页面没有保存就返回上一页，再次进入之后保持原来数据状态
+        return {
+          ...val
+        }
+      })
+    }
+  }
+  const [showList, setShowList] = useState(_keys(props));
   const [statusBar, setStatusBar] = useState({
     backgroundColor: theme,
     barStyle: 'light-content',
-  })
+  });
+  const [changeValues, setChangeValues] = useState([]);
+ 
+  useEffect(() => {
+    backPress.componentDidMount();
+    return () => {
+      backPress.componentWillUnmount();
+    }
+  });
+  
   const _onBackPress = () => {
     _onBlack();
     return true;
-  }
+  };
+
   const _onBlack = () => {
-    NavigationUtil.goBack(props.navigation);
-    return true
-  }
-  useEffect(() => {
-    backPress.componentDidMount()
-    
-    if (flag === 'key') {
-      setShowList([...keysAndLangData['keys']])
+    const { onLoadKeysAndLang } = props
+    if (changeValues.length > 0) {
+      showPop({
+        contentTxt: '是否保存更改?',
+        confirmButtonTxt: '确定',
+        confirmPress: () => {
+          _saveClick()
+        },
+        cancelPress: () => {
+          NavigationUtil.goBack(props.navigation);
+        }
+      })
     } else {
-      setShowList([...keysAndLangData['lang']])
+      NavigationUtil.goBack(props.navigation);
     }
-    return () => {
-      backPress.componentWillUnmount()
-    }
-  }, [])
+    return true;
+  };
+  
+  // 选中状态改变
   const _onChangeCheckbox = (item: any, index: number) => {
-    const arrList = showList.slice()
-    arrList[index].checked = !item.checked
-    setShowList([...arrList])
-    showPop({
-      contentTxt: '选中成功',
-      confirmButtonTxt: '确定',
-      confirmPress: () => {
-        NavigationUtil.goBack(props.navigation);
-      }
-    })
-  }
+    const arrList = showList.slice();
+    Utils.updateArray(changeValues, item)
+    arrList[index].checked = !item.checked;
+    setShowList([...arrList]);
+  };
+  // 设置checkbox的选中和未选中图片以及颜色
+  const _checkedImage = (checked: boolean) => {
+    return <Ionicons name={checked ? 'ios-checkbox' : 'md-square-outline'} size={20} style={{ color: theme }} />
+  };
   const _renderCheckbox = (data: any, index: number) => {
-    return <CheckBox style={{ flex: 1, padding: 10 }}
+    return <CheckBox
+      style={{ flex: 1, padding: 10 }}
       isChecked={data.checked}
       onClick={() => _onChangeCheckbox(data, index)}
       leftText={data.name}
+      checkedImage={_checkedImage(true)}
+      unCheckedImage={_checkedImage(false)}
     >
     </CheckBox>
-  }
-  const _renderItems = () => {
+  };
+  const _renderItems = () => {// 渲染内容
     if (!showList || showList.length === 0) {
       return <View>
         <Text>暂无数据</Text>
@@ -88,7 +123,27 @@ function CustomKeyPage (props: any) {
     }
     
     return views;
-  }
+  };
+  const _saveClick = () => {// 右上保存数据
+    if (changeValues.length === 0) {
+      NavigationUtil.goBack(props.navigation);
+      return;
+    }
+    let isRemoveList;
+    if (isRemove) {// 移除的时候特判断处理一下删除对应的数据
+      changeValues.forEach((item: any) => {
+        for (let i = 0; i < props.keysAndLang[flag].length; i++) {
+          if (item.name === props.keysAndLang[flag][i].name && item.checked) {
+            props.keysAndLang[flag].splice(i, 1)
+          }
+        }
+        isRemoveList = props.keysAndLang[flag]
+      })
+    }
+    const { onLoadKeysAndLang } = props;
+    onLoadKeysAndLang(isRemoveList || showList, flag);
+    NavigationUtil.goBack(props.navigation);
+  };
   let titleLayoutStyle = title.length > 20 ? {paddingRight: 30} : null;
   let navigationBar = <NavigationBar
     statusBar={statusBar}
@@ -98,11 +153,11 @@ function CustomKeyPage (props: any) {
         title={props.route.params.isRemove ? '标签移除' : title}
         style={{ backgroundColor: theme }}
     rightButton={
-      <TouchableOpacity style={{ marginRight: 10}}>
+      <TouchableOpacity style={{ marginRight: 10}} onPress={() => _saveClick()}>
         <Text style={{ color: 'white', fontSize: 14 }}>保存</Text>
       </TouchableOpacity>
     }
-    />
+  />
   return(
     <SafeAreaVIewPlus style={styles.container} topColor={theme}>
       {navigationBar}
@@ -119,19 +174,16 @@ const mapStateToCustomKeyPage = (state: any) => ({
   theme: state.theme.theme,
   keysAndLang: state.keysAndLang
 })
-
-export default connect(mapStateToCustomKeyPage, null)(CustomKeyPage)
+const mapDispatchToCustomKeyPage = (dispatch: any) => ({
+  onLoadKeysAndLang: (data: any, key: string) => dispatch(action.onLoadKeysAndLang(data, key))
+})
+export default connect(mapStateToCustomKeyPage, mapDispatchToCustomKeyPage)(CustomKeyPage)
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
   },
   showListItems: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10
+    flexDirection: 'row'
   }
 })

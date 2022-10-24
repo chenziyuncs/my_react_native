@@ -14,7 +14,19 @@ export default class Utils {
   //   }
   //   return false;
   // }
-
+  /**
+   * 更新数组,若item已存在则将其从数组中删除,若不存在则将其添加到数组
+   * **/
+  static updateArray(array, item) {
+    for (let i = 0, len = array.length; i < len; i++) {
+      let temp = array[i];
+      if (item === temp) {
+        array.splice(i, 1);
+        return;
+      }
+    }
+    array.push(item);
+  }
   /**
    * 检查key是否存在于keys中
    * @param keys

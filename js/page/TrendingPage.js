@@ -10,7 +10,6 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { tabNav } from '../navigator/NavigationDelegate';
-import lang from '../res/data/lang.json';
 import action from '../action';
 import TrendingItem from '../common/TrendingItem.js'
 import Toast from '../common/Toast/index';
@@ -19,19 +18,17 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import NavigationUtil from '../navigator/NavigationUtil';
 import {FLAG_STORAGE} from '../expand/dao/DataStore';
 import FavoriteDao from '../expand/dao/FavoriteDao'
+import Utils from '../util/Utils'
 const favoriteDao = new FavoriteDao('trending')
 flagIndex = 1
 class TrendingPage extends Component {
   constructor(props) {
     super(props)
-    const langArr = this.props.lang.length !== 0 ? this.props.lang : lang
-    this.state = {
-      lang: langArr
-    }
+    this.preLang = this.props.keysAndLang.lang
   }
   componentDidMount () {
     const { onLoadKeysAndLang } = this.props;
-    onLoadKeysAndLang(this.state.lang ,'lang')
+    onLoadKeysAndLang([] ,'lang')
   }
   renderTitleView() {
     return <View>
@@ -55,7 +52,8 @@ class TrendingPage extends Component {
   }
   render () {      
     const themeColor = this.props.theme.themeColor || this.props.theme;
-    if (this.themeColor != themeColor) {//当主题变更的时候需要以新的主题色来创建TabNavigator
+    const { lang } = this.props.keysAndLang
+    if (this.themeColor != themeColor || !Utils.isEqual(this.preLang, lang)) {//当主题变更的时候需要以新的主题色来创建TabNavigator
       this.themeColor = themeColor;
       this.TabNavigator = null;
     }
@@ -68,11 +66,11 @@ class TrendingPage extends Component {
       statusBar={statusBar}
       // style={this.props.theme.styles.navBar}
     />;
-    this.TabNavigator = this.TabNavigator ? this.TabNavigator : this.state.lang.length
+    this.TabNavigator = this.TabNavigator ? this.TabNavigator : lang.length
       ? tabNav({
         Component: TrendingTabPage,
         theme: { themeColor: themeColor },
-        keys: this.state.lang,
+        keys: lang,
       })
       : null;
 
@@ -86,7 +84,7 @@ class TrendingPage extends Component {
 }
 const mapTrendingPageToState = state => ({
   theme: state.theme.theme,
-  lang: state.keysAndLang.lang
+  keysAndLang: state.keysAndLang
 });
 const mapTrendingPageToDispatch = (dispatch) => ({
   onLoadKeysAndLang: (arr, key) => dispatch(action.onLoadKeysAndLang(arr, key))
