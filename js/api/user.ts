@@ -1,5 +1,5 @@
 import request from '../util/Request'
-
+// import axios from 'react-native-axios';
 /**
  * 登录
  * @params Login
@@ -29,6 +29,9 @@ import request from '../util/Request'
   return request({
     url: '/user/logout',
     method: 'POST',
+    // canceltoken: new axios.canceltoken(function executor(c: any) { // 设置取消请求 cancel token
+    //   that.source = c;
+    // })
   })
 }
 

@@ -28,7 +28,10 @@ class TrendingPage extends Component {
   }
   componentDidMount () {
     const { onLoadKeysAndLang } = this.props;
-    onLoadKeysAndLang([] ,'lang')
+    
+    if (this.props.keysAndLang.lang.length === 0) {
+      onLoadKeysAndLang([] ,'lang')
+    }
   }
   renderTitleView() {
     return <View>
@@ -104,7 +107,7 @@ class TrendingTab extends Component {
     const storeList = this._store();
     if (loadMore) {
       onLoadMoreTrendingData(this.storeName, 'trending', ++storeList.pageIndex, pageSize, callback => {
-        Toast.show('没有更多数据了', 1500);
+        Toast.showSecond('没有更多数据了', 1500);
       })
     } else {
       onLoadTrendingData(this.storeName, 'trending', 1, pageSize, favoriteDao);

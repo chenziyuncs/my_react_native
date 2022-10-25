@@ -1,6 +1,6 @@
 import Types from '../types'
 import DataStore from '../../expand/dao/DataStore';
-import  Utils from '../../util/Utils.js'
+import  Utils from '../../util/Utils'
 import { getTrendingData } from '../../api/trending'
 /**
  * 获取趋势异步action

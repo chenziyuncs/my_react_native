@@ -15,7 +15,8 @@ import { tabNav } from '../navigator/NavigationDelegate';
 import Utils from '../util/Utils'
 import Toast from '../common/Toast/index';
 import NavigationBar from '../common/NavigationBar';
-
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import NavigationUtil from '../navigator/NavigationUtil'
 flagIndex = 1
 class PopularPage extends Component {
   constructor (props) {
@@ -24,25 +25,25 @@ class PopularPage extends Component {
   }
   componentDidMount() {
     const { onLoadKeysAndLang } = this.props;
-    onLoadKeysAndLang([], 'keys')
+    if (this.props.keysAndLang.keys.length === 0) {
+      onLoadKeysAndLang([], 'keys')
+    }
+    
   }
-  renderTitleView() {
-    return <View>
-      <TouchableOpacity
-        underlayColor='transparent'
-        onPress={() => {}}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{
-            fontSize: 18,
-            color: '#FFFFFF',
-            fontWeight: '400',
-          }}>最热</Text>
-        </View>
-      </TouchableOpacity>
-    </View>;
+  _renderRightButton () {// 显示右边搜索框按钮
+    const theme = this.props.theme.themeColor.themeColor
+    return <TouchableOpacity
+      onPress={() => {
+        NavigationUtil.goPage({theme}, 'SearchPage')
+      }}
+    >
+      <View style={{ padding: 5, marginRight: 8 }}>
+        <Ionicons name='search' size={20} style={{ color: 'white' }} />
+      </View>
+    </TouchableOpacity>
   }
   render() {
-    const themeColor = this.props.theme.themeColor.themeColor|| this.props.theme.themeColor;
+    const themeColor = this.props.theme.themeColor.themeColor || this.props.theme.themeColor;
     const { keys } = this.props.keysAndLang
     if (this.themeColor != themeColor || !Utils.isEqual(this.preKeys, keys)) {//当主题变更的时候需要以新的主题色来创建TabNavigator
       this.themeColor = themeColor;
@@ -53,8 +54,9 @@ class PopularPage extends Component {
       barStyle: 'light-content',
     };
     let navigationBar = <NavigationBar
-      titleView={this.renderTitleView()}
+      title='最热'
       statusBar={statusBar}
+      rightButton={this._renderRightButton()}
     />;
     //通过复用TabNavigator来防止导航器频繁的创建，提升渲染效率
     this.TabNavigator = this.TabNavigator ? this.TabNavigator : keys.length
@@ -97,7 +99,7 @@ class PopularTab extends Component {
     const storeList = this._store();
     if (loadMore) {
       onLoadMorePopularData(this.storeName, 'popular', ++storeList.pageIndex, pageSize, callback => {
-        Toast.show('没有更多数据了', 1500);
+        Toast.showSecond('没有更多数据了', 1500);
       })
     } else {
       onLoadPopularData(this.storeName, 'popular', 1, pageSize);
@@ -114,7 +116,6 @@ class PopularTab extends Component {
     let storeList = popular[this.storeName];
     if (!storeList) {
       storeList = {
-        // items: [],
         isLoading: false,
         projectModels: [],//要显示的数据
         hideLoadingMore: true,//默认隐藏加载更多
@@ -123,18 +124,11 @@ class PopularTab extends Component {
     return storeList;
   }
 
-  _onFavorites (data, isFavorite) {
+  _onFavorites (data, isFavorite) {// 收藏
     data.isFavorite = isFavorite
     const { updatePopularDataItem } = this.props
 
     updatePopularDataItem('popular', this.storeName, [data], 'CLICK_POUPULAR_FAVORITE')
-
-    // const key = (data.id ? data.id : data.full_name) + '';
-    // if (isFavorite) {
-    //   favoriteDao.saveFavoriteItem(key, JSON.stringify(data));
-    // } else {
-    //   favoriteDao.removeFavoriteItem(key);
-    // }
   }
 
   renderItem(data, theme) {
@@ -151,7 +145,7 @@ class PopularTab extends Component {
     />
   }
 
-  genIndicator() {
+  genIndicator() {// 底部加载更多
     return this._store().hideLoadingMore ? null :
       <View style={styles.indicatorContainer}>
         <ActivityIndicator
@@ -160,7 +154,7 @@ class PopularTab extends Component {
         <Text>正在加载更多</Text>
       </View>
   }
-  _listEmpty (data) {
+  _listEmpty (data) {// 无数据显示状态
     return <View style={{flex: 1, marginTop: 100, justifyContent: 'center', alignItems: 'center'}}>
       <Text>暂无数据</Text>
     </View>

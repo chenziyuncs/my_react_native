@@ -49,7 +49,7 @@ function AboutMePage(props: any) {
     if (menu.account) {
       Clipboard.setString(menu.account);
       Clipboard.getString().then(res => {
-        Toast.show(`${menu.title}:${res}已复制到剪切板`, 3000)
+        Toast.showSecond(`${menu.title}:${res}已复制到剪切板`, 3000)
       })
      
     }

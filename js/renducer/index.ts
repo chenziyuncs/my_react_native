@@ -5,6 +5,7 @@ import trending from './trending/index'
 import favorite from './favorite'
 import user from './user'
 import keysAndLang from './keysAndLang'
+import search from './search'
 /**
  * 合并reducer
  */
@@ -14,7 +15,8 @@ const index = combineReducers({
   trending: trending,
   favorite: favorite,
   user: user,
-  keysAndLang
+  keysAndLang,
+  search
 });
 
 export default index;

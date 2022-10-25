@@ -17,7 +17,7 @@ class Toast {
       }}/>)
   }
 
-  static show(msg, time) {
+  static showSecond(msg, time) {
     RootView.setView(<ToastView
       message={msg}
       time={time}

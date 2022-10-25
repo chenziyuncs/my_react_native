@@ -1,7 +1,7 @@
 
 import Types from '../types';
 import { getPopularData } from '../../api/popular'
-import Utils from '../../util/Utils.js'
+import Utils from '../../util/Utils'
 
 function newDataList (dispatch: any, getState: any, list: any, pageSize: number, storeName: string, flag: any) {
   let showItem = pageSize > list.length ? list: list.slice(0, pageSize)
@@ -37,14 +37,22 @@ function newDataList (dispatch: any, getState: any, list: any, pageSize: number,
  */
 export function updatePopularDataItem (flag: string, storeName: string, data: any) {
   return (dispatch: any, getState: any) => {
-    const { projectModels } = getState()[flag][storeName]
-    const sum = [...data, ...projectModels]
-    const newSum = Utils.removeDulplicates(sum, 'id')
-    dispatch({
-      type: Types.CLICK_POUPULAR_FAVORITE,
-      projectModels: newSum,
-      storeName
-    })
+    if (getState()[flag][storeName]) {
+      const { projectModels } = getState()[flag][storeName]
+      const sum = [...data, ...projectModels]
+      const newSum = Utils.removeDulplicates(sum, 'id')
+      dispatch({
+        type: Types.CLICK_POUPULAR_FAVORITE,
+        projectModels: newSum,
+        storeName
+      })
+    } else {
+      dispatch({
+        type: Types.CLICK_POUPULAR_FAVORITE,
+        projectModels: data,
+        storeName
+      })
+    }
   }
 }
 /**

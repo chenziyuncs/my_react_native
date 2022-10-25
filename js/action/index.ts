@@ -4,6 +4,7 @@ import { onLoadTrendingData, onLoadMoreTrendingData, updateTrendingDataItem } fr
 import { onLoadFavoriteData, updateOnLoadFavoriteData } from './favorite'
 import { loginDispatch, logoutDispatch, saveBoardingNew, logoutMethods } from './user'
 import { onLoadKeysAndLang } from './keysAndLang'
+import { onLoadSearchData, onLoadMoreSearch, onSearchCancel, resetSearchData } from './search'
 
 export default {
   onThemeChange,
@@ -20,5 +21,9 @@ export default {
   updateOnLoadFavoriteData,
   updateTrendingDataItem,
   onLoadKeysAndLang,
-  onShowThemeView
+  onShowThemeView,
+  onLoadSearchData,
+  onLoadMoreSearch,
+  onSearchCancel,
+  resetSearchData
 };

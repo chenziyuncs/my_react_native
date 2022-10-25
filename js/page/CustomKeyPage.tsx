@@ -18,7 +18,8 @@ import GlobalStyles from '../config/GlobalStyles';
 import { showPop } from '../util/PopUpservice';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
 import action from '../action';
-import Utils from '../util/Utils.js'
+import Utils from '../util/Utils'
+import Toast from '../common/Toast'
 function CustomKeyPage (props: any) {
   const [backPress, setBackPress] = useState(new BackPressComponent({ backPress: () => _onBackPress() }));
   const [theme, setTheme] = useState(props.theme.themeColor);
@@ -130,15 +131,20 @@ function CustomKeyPage (props: any) {
       return;
     }
     let isRemoveList;
+    const propsList = props.keysAndLang[flag].slice();
     if (isRemove) {// 移除的时候特判断处理一下删除对应的数据
       changeValues.forEach((item: any) => {
-        for (let i = 0; i < props.keysAndLang[flag].length; i++) {
-          if (item.name === props.keysAndLang[flag][i].name && item.checked) {
-            props.keysAndLang[flag].splice(i, 1)
+        for (let i = 0; i < propsList.length; i++) {
+          if (item.name === propsList[i].name && item.checked) {
+            propsList.splice(i, 1)
           }
         }
-        isRemoveList = props.keysAndLang[flag]
+        isRemoveList = propsList
       })
+    }
+    if (propsList < 1) {
+      Toast.showSecond('最少保留一个标签', 3000)
+      return
     }
     const { onLoadKeysAndLang } = props;
     onLoadKeysAndLang(isRemoveList || showList, flag);
