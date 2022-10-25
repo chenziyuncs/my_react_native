@@ -38,7 +38,7 @@ class AboutPage extends Component<Props> {
   }
   _onClick (menu: any) {
     let routeName = null;
-    let params = {theme: this.props.theme.themeColor} as any;
+    let params = {theme: this.props.theme.themeColor.themeColor} as any;
     switch (menu) {
       case MORE_MENU.Tutorial:
         routeName = 'WebViewPage'
@@ -68,7 +68,7 @@ class AboutPage extends Component<Props> {
     }
   }
   getItem (menu: any) {
-    return ViewUtil.getMenuItem(() => this._onClick(menu), menu, this.props.theme.themeColor, 'chevron-forward')
+    return ViewUtil.getMenuItem(() => this._onClick(menu), menu, this.props.theme.themeColor.themeColor, 'chevron-forward')
   }
   render () {
     const content = <View>

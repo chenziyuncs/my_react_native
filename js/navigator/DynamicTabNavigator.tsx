@@ -41,8 +41,7 @@ class DynamicTabNavigator extends Component<Props> {
     this.tabNavIndex = index;
   }
   _getMethod() {
-    // const themeColor = this.props.theme.themeColor || this.props.theme;
-    const themeColor = this.props.theme.themeColor || this.props.theme;
+    const themeColor = this.props.theme.themeColor.themeColor || this.props.theme;
     return (
       <Tab.Navigator
         tabBar={(props) => {

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {
   FlatList,
   StyleSheet,
-  Text, View,
+  Text,
+  View,
   ActivityIndicator,
-  RefreshControl
+  RefreshControl,
+  TouchableOpacity
 } from 'react-native';
 import PopularItem from '../common/PopularItem'
 import { connect } from 'react-redux';
@@ -12,6 +14,7 @@ import action from '../action';
 import { tabNav } from '../navigator/NavigationDelegate';
 import Utils from '../util/Utils'
 import Toast from '../common/Toast/index';
+import NavigationBar from '../common/NavigationBar';
 
 flagIndex = 1
 class PopularPage extends Component {
@@ -23,19 +26,36 @@ class PopularPage extends Component {
     const { onLoadKeysAndLang } = this.props;
     onLoadKeysAndLang([], 'keys')
   }
+  renderTitleView() {
+    return <View>
+      <TouchableOpacity
+        underlayColor='transparent'
+        onPress={() => {}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={{
+            fontSize: 18,
+            color: '#FFFFFF',
+            fontWeight: '400',
+          }}>最热</Text>
+        </View>
+      </TouchableOpacity>
+    </View>;
+  }
   render() {
-    const themeColor = this.props.theme.themeColor || this.props.theme;
+    const themeColor = this.props.theme.themeColor.themeColor|| this.props.theme.themeColor;
     const { keys } = this.props.keysAndLang
     if (this.themeColor != themeColor || !Utils.isEqual(this.preKeys, keys)) {//当主题变更的时候需要以新的主题色来创建TabNavigator
       this.themeColor = themeColor;
       this.TabNavigator = null;
     }
-    // let navigationBar = (
-    //   <NavigationBar
-    //     title={'最热'}
-    //     style={{ backgroundColor: themeColor }}//修改标题栏主题色
-    //   />
-    // );
+    let statusBar = {
+      backgroundColor: themeColor,
+      barStyle: 'light-content',
+    };
+    let navigationBar = <NavigationBar
+      titleView={this.renderTitleView()}
+      statusBar={statusBar}
+    />;
     //通过复用TabNavigator来防止导航器频繁的创建，提升渲染效率
     this.TabNavigator = this.TabNavigator ? this.TabNavigator : keys.length
       ? tabNav({
@@ -46,7 +66,7 @@ class PopularPage extends Component {
       : null;
     return (
       <View style={styles.container}>
-        {/* {navigationBar} */}
+        {navigationBar}
         {this.TabNavigator}
       </View>
     );

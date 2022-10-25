@@ -15,25 +15,15 @@ import { MORE_MENU } from '../common/More_menu'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import GlobalStyles from '../config/GlobalStyles'
 import ViewUtil from '../util/ViewUtil';
-interface Props {
-  navigation: any
-}
+
 function MyPage(props: any){
-  const [theme, setTheme] = useState(props.theme.theme.themeColor);
+  const [theme, setTheme] = useState(props.theme.themeColor.themeColor)
   useEffect(() => {
   })
   const [statusBar, setStatusBar] = useState({
-    backgroundColor: theme,
+    backgroundColor: props.theme.themeColor.themeColor,
     barStyle: 'light-content',
   })
-  const _changeTheme = () => {
-    const { onThemeChange } = props;
-    const newTheme = {
-      themeColor: 'red'
-    }
-    onThemeChange(newTheme)
-    setTheme(newTheme.themeColor)
-  }
   const _onLoginoutClick = () => {
     const { logoutDispatch, logoutMethods } = props
     // logoutDispatch().then((res: any) => {
@@ -42,13 +32,12 @@ function MyPage(props: any){
     //   }
     // })
     logoutMethods().then((res: any) => {
-      console.log(res)
       NavigationUtil.login()
     })
   }
   const _onClick = (menu: any) => {
     let routeName: string | null = null;
-    let params = {theme: theme} as any;
+    let params = {theme: props.theme.themeColor.themeColor} as any;
     switch (menu) {
       case MORE_MENU.Tutorial:
         routeName = 'WebViewPage'
@@ -73,6 +62,9 @@ function MyPage(props: any){
           title: menu !== MORE_MENU.Custom_Language ? '自定义标签' : '自定义语言'
         }
         break;
+      case MORE_MENU.Custom_Theme:
+        const { onShowThemeView } = props;
+        onShowThemeView(true)
     }
     if (routeName) {
       NavigationUtil.goPage(params, routeName)
@@ -81,9 +73,10 @@ function MyPage(props: any){
   let navigationBar = <NavigationBar
     title={'我的'}
     statusBar={statusBar}
+    style={props.theme.themeColor.styles.navBar}
   />
   const getItem = (menu: any) => {
-    return ViewUtil.getMenuItem(() => _onClick(menu), menu, theme, 'chevron-forward')
+    return ViewUtil.getMenuItem(() => _onClick(menu), menu, props.theme.themeColor.themeColor, 'chevron-forward')
   }
     
   return(
@@ -97,10 +90,10 @@ function MyPage(props: any){
           }}
         >
           <View style={styles.about_left}>
-            <Ionicons name={MORE_MENU.About.icon} size={40} style={[styles.icon_style, {color: theme}]} />
+            <Ionicons name={MORE_MENU.About.icon} size={40} style={[styles.icon_style, {color: props.theme.themeColor.themeColor}]} />
             <Text>GitHub Popular</Text>
           </View>
-          <Ionicons name={'chevron-forward'} size={16} style={[styles.icon_style, {color: theme}]} />
+          <Ionicons name={'chevron-forward'} size={16} style={[styles.icon_style, {color: props.theme.themeColor.themeColor}]} />
         </TouchableOpacity>
         <View style={GlobalStyles.line}></View>
         {/*教程 */}
@@ -133,26 +126,24 @@ function MyPage(props: any){
          {/*反馈 */}
         {getItem(MORE_MENU.Feedback)}
 
-        <TouchableOpacity style={styles.confirmButton} onPress={() => {
+        <TouchableOpacity style={[styles.confirmButton, { backgroundColor: props.theme.themeColor.themeColor }]} onPress={() => {
           _onLoginoutClick();
         }}>
           <Text style={styles.confirmTitle}>退出</Text>
         </TouchableOpacity>
-        {/* <Button title={`改变主题: 当前主题${theme}`} onPress={() => {
-          _changeTheme();
-        }} /> */}
       </ScrollView>
     </View>
   )
 }
 const mapStateToFavorite = (state: any) => ({
-  theme: state.theme
+  theme: state.theme.theme
 })
 
 const mapDispatchToFavorite = (dispatch: any) => ({
   onThemeChange: (theme: any) => dispatch(action.onThemeChange(theme)),
   logoutDispatch: () => dispatch(action.logoutDispatch()),
-  logoutMethods: () => dispatch(action.logoutMethods())
+  logoutMethods: () => dispatch(action.logoutMethods()),
+  onShowThemeView: (show: boolean) => dispatch(action.onShowThemeView(show))
 })
 export default connect(mapStateToFavorite, mapDispatchToFavorite)(MyPage)
 

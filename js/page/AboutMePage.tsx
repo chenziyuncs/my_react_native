@@ -60,7 +60,7 @@ function AboutMePage(props: any) {
         ...dataObject,
         [key]: !dataObject[key]
       });
-    }, menu.name, props.theme.themeColor, Ionicons, menu.icon , isShow ? 'chevron-up' : 'chevron-down-outline')
+    }, menu.name, props.theme.themeColor.themeColor, Ionicons, menu.icon , isShow ? 'chevron-up' : 'chevron-down-outline')
   }
   const renderItems = (doc: any, isShowAccount?: boolean) => {
     let views: any = [];

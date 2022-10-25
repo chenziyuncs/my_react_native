@@ -51,7 +51,7 @@ class TrendingPage extends Component {
     </View>;
   }
   render () {      
-    const themeColor = this.props.theme.themeColor || this.props.theme;
+    const themeColor = this.props.theme.themeColor.themeColor || this.props.theme;
     const { lang } = this.props.keysAndLang
     if (this.themeColor != themeColor || !Utils.isEqual(this.preLang, lang)) {//当主题变更的时候需要以新的主题色来创建TabNavigator
       this.themeColor = themeColor;
@@ -64,7 +64,6 @@ class TrendingPage extends Component {
     let navigationBar = <NavigationBar
       titleView={this.renderTitleView()}
       statusBar={statusBar}
-      // style={this.props.theme.styles.navBar}
     />;
     this.TabNavigator = this.TabNavigator ? this.TabNavigator : lang.length
       ? tabNav({
@@ -125,12 +124,6 @@ class TrendingTab extends Component {
     return storeList;
   }
   _onFavoriteMethods (data, isFavorite) {
-    // const key = (data.id ? data.id : data.fullName) + '';
-    // if (isFavorite) {
-    //   favoriteDao.saveFavoriteItem(key, JSON.stringify(data));
-    // } else {
-    //   favoriteDao.removeFavoriteItem(key)
-    // }
     const { updateTrendingDataItem } = this.props
     updateTrendingDataItem('trending', this.storeName, [data])
   }
@@ -142,7 +135,8 @@ class TrendingTab extends Component {
         NavigationUtil.goPage({
           theme,
           projectModel: data.item,
-          flag: FLAG_STORAGE.flag_trending
+          flag: FLAG_STORAGE.flag_trending,
+          theme: theme.themeColor
         }, 'DetailPage');
       }}
       onFavorite={(item, isFavorite) => {
@@ -166,35 +160,35 @@ class TrendingTab extends Component {
     let storeList = this._store();
     return (
       <View style={styles.containerPopularTab}>
-      <FlatList
-        data={storeList.projectModels}
-        renderItem={data => this.renderItem(data, this.props.theme)}
-        keyExtractor={item => "" + item.id + ++flagIndex}
-        refreshControl={
-          <RefreshControl
-            title={'Loading'}
-            titleColor={'red'}
-            colors={['red']}
-            refreshing={storeList.isLoading}
-            onRefresh={() => this.loadData(false)}
-            tintColor={'red'}
-          />
-        }
-        initialNumToRender={5}
-        ListFooterComponent={() => this.genIndicator()}
-        onEndReached={() => {
-          setTimeout(() => {
-            if (this.canLoadMore) {//fix 滚动时两次调用onEndReached
-              this.loadData(true);
-              this.canLoadMore = false;
-            }
-          }, 100);
-        }}
-        onEndReachedThreshold={0.5}
-        onMomentumScrollBegin={() => {
-          this.canLoadMore = true; //fix 初始化时页调用onEndReached的问题
-        }}
-      />
+        <FlatList
+          data={storeList.projectModels}
+          renderItem={data => this.renderItem(data, this.props.theme)}
+          keyExtractor={item => "" + item.id + ++flagIndex}
+          refreshControl={
+            <RefreshControl
+              title={'Loading'}
+              titleColor={'red'}
+              colors={['red']}
+              refreshing={storeList.isLoading}
+              onRefresh={() => this.loadData(false)}
+              tintColor={'red'}
+            />
+          }
+          initialNumToRender={5}
+          ListFooterComponent={() => this.genIndicator()}
+          onEndReached={() => {
+            setTimeout(() => {
+              if (this.canLoadMore) {//fix 滚动时两次调用onEndReached
+                this.loadData(true);
+                this.canLoadMore = false;
+              }
+            }, 100);
+          }}
+          onEndReachedThreshold={0.5}
+          onMomentumScrollBegin={() => {
+            this.canLoadMore = true; //fix 初始化时页调用onEndReached的问题
+          }}
+        />
       {/* <Toast message={'Toast 显示内容电饭锅电饭锅呜呜呜'} /> */}
     </View>
     )

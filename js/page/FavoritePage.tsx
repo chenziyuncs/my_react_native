@@ -61,9 +61,9 @@ class FavoritePage extends Component<Props> {
   }
   
   render() {
-    const theme = this.props.theme
+    const theme = this.props.theme.themeColor.themeColor
     let statusBar = {
-      backgroundColor: theme.themeColor,
+      backgroundColor: theme,
       barStyle: 'light-content',
     };
     // let TabNavigator = null;
@@ -81,7 +81,7 @@ class FavoritePage extends Component<Props> {
         tabBarInactiveTintColor: 'white',
         tabBarActiveTintColor: 'white',
         tabBarStyle: {
-          backgroundColor: theme.themeColor,//tabbar的背景色
+          backgroundColor: theme,//tabbar的背景色
         },
       tabBarIndicatorStyle: styles.indicatorStyle,//指示器的颜色
       tabBarLabelStyle: styles.labelStyle,//文本的颜色
@@ -169,7 +169,7 @@ class FavoriteTab extends Component<Props>{
 
   }
   renderItem (item: any) {
-    const { theme } = this.props.theme
+    const theme = this.props.theme.theme.themeColor
     const Items = this.storeName === 'popular' ? <PopularItem projectModel={item.item} theme={theme} onSelect={() => {}}
     onFavorite={(item: any, isFavorite: any) => {
         this._onFavorites(item, isFavorite)

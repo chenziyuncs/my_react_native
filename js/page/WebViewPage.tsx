@@ -48,10 +48,10 @@ function WebViewPage (props: any) {
     })}
     titleLayoutStyle={titleLayoutStyle}
     title={title}
-    style={{ backgroundColor: theme.themeColor }}
+    style={{ backgroundColor: theme.themeColor.themeColor }}
   />
   return(
-    <SafeAreaVIewPlus style={styles.container} topColor={theme.themeColor}>
+    <SafeAreaVIewPlus style={styles.container} topColor={theme.themeColor.themeColor}>
       {navtartionBar}
       <WebView
         ref={webview => webview = webview}

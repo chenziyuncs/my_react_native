@@ -13,20 +13,17 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  // DeviceInfo,
   Platform
 } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
+// import DeviceInfo from 'react-native-device-info'
 const TRENDING_URL = 'https://github.com/'
-const THEME_COLOR = '#678'
-const favoriteDao = new FavoriteDao('trending')
 class DetailPage extends Component {
 
   constructor(props) {
     super(props);
     // this.params = this.props.navigation.state.params;
     this.params = this.props.route.params;
-    const { projectModel, flag } = this.params;
+    const { projectModel, flag, theme } = this.params;
     this.url = projectModel.html_url || TRENDING_URL + projectModel.fullName;
     const title = projectModel.full_name || projectModel.fullName;
     const isFavorite = projectModel.isFavorite
@@ -35,7 +32,8 @@ class DetailPage extends Component {
       url: this.url,
       canGoBack: false,
       flag,
-      isFavorite
+      isFavorite,
+      theme
     }
     this.backPress = new BackPressComponent({backPress: () => this.onBackPress()})
   }
@@ -97,7 +95,6 @@ class DetailPage extends Component {
   });
   }
   render () {
-    console.log(DeviceInfo.hasNotch(), 11111)
     let titleLayoutStyle = this.state.title.length > 20 ? {paddingRight: 30} : null;
     let navtartionBar = <NavtartionBar
       leftButton={ViewUtil.getLeftBackButton(() => {
@@ -105,20 +102,21 @@ class DetailPage extends Component {
       })}
       titleLayoutStyle={titleLayoutStyle}
       title={this.state.title}
-      style={{backgroundColor: THEME_COLOR}}
+      style={{backgroundColor: this.state.theme}}
       rightButton={this._renderRightButton()}
     />
     return(
-      <View style={styles.container}>
+      <SafeAreaVIewPlus style={styles.container} topColor={this.state.theme}>
         {navtartionBar}
-        <WebView
-          // style={{marginTop: NAVIGATION_BAR_HEIGHT}}
-          ref={webView => this.webView = webView}
-          startInLoadingState={true}
-          onNavigationStateChange={e => this._onNavigationStateChange(e)}
-          source={{uri: this.state.url}}
-        />
-      </View>
+          <WebView
+            // style={{marginTop: NAVIGATION_BAR_HEIGHT}}
+            ref={webView => this.webView = webView}
+            startInLoadingState={true}
+            onNavigationStateChange={e => this._onNavigationStateChange(e)}
+            source={{uri: this.state.url}}
+          />
+      </SafeAreaVIewPlus>
+      
     )
   }
 }
@@ -131,6 +129,6 @@ export default connect(null, mapDetailPageDispatch)(DetailPage)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: DeviceInfo.hasNotch() ? 35 : 0
+    // marginTop: DeviceInfo.hasNotch() ? 35 : 0
   }
 })

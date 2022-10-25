@@ -6,7 +6,6 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import LoginDao from '../expand/dao/LoginDao';
 import NavigationUtil from '../navigator/NavigationUtil'
 import { connect } from 'react-redux'
 import actions from '../action'
@@ -48,7 +47,7 @@ function loginPage (props: any):any {
   }
   return (
     <SafeAreaView style={styles.root}>
-      <NavBar title={'登录'} rightTitle={'注册'} onRightClick={() => {
+      <NavBar tcStyle={props.theme.styles.selectedTitleStyle} title={'登录'} rightTitle={'注册'} onRightClick={() => {
         NavigationUtil.registration({navigation})
       }} />
       <View style={styles.line}></View>
@@ -65,8 +64,8 @@ function loginPage (props: any):any {
           secure={true}
           onChangeText={(text: string) => setPassword(text)}
         />
-        <ConfirmButton title={'登录'} onClick={onLogin}/>
-        <Tips msg={msg} helpUrl={helpUrl} />
+        <ConfirmButton bgStyle={props.theme.styles.navBar} title={'登录'} onClick={onLogin}/>
+        <Tips bgStyle={props.theme.styles.navBar} msg={msg} helpUrl={helpUrl} />
         {/* <ConfirmButton title={'查询token'} onClick={checkToken}/> */}
       </View>
     </SafeAreaView>
@@ -74,7 +73,8 @@ function loginPage (props: any):any {
 };
 
 const mapStateToLoginPage = (state: any) => ({
-  token: state.user.token
+  token: state.user.token,
+  theme: state.theme.theme.themeColor
 })
 const mapDispatchToLoginPage = (dispatch: any) => ({
   loginDispatch: (username: any, password: any) => dispatch(actions.loginDispatch(username, password)),

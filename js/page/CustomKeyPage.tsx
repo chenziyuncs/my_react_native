@@ -171,7 +171,7 @@ function CustomKeyPage (props: any) {
 }
 
 const mapStateToCustomKeyPage = (state: any) => ({
-  theme: state.theme.theme,
+  theme: state.theme.theme.themeColor,
   keysAndLang: state.keysAndLang
 })
 const mapDispatchToCustomKeyPage = (dispatch: any) => ({
