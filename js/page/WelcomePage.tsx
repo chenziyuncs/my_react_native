@@ -9,6 +9,7 @@ import {
 import NavigationUtil from '../navigator/NavigationUtil';
 import { getBoarding } from '../util/boardingUtil';
 import { connect } from 'react-redux'
+import SplashScreen from 'react-native-splash-screen'
 interface Props {
   navigation: any,
   boarding: any
@@ -32,6 +33,9 @@ class WelcomePage extends Component<Props> {
     }, 2000)
   }
   componentDidMount(): void {
+    setTimeout(() => {
+      SplashScreen.hide()
+    }, 400)
     this.doLaunch()
   }
   componentWillUnmount(): void {
