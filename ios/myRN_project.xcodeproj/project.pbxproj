@@ -14,6 +14,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-myRN_project-myRN_projectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-myRN_project-myRN_projectTests.a */; };
 		804A17DA29054F9300FBE5B6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 804A17D929054F9300FBE5B6 /* Fonts */; };
+		80C2198E290B723E00C473F0 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 80C2198B290B723E00C473F0 /* assets */; };
+		80C2198F290B723E00C473F0 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 80C2198D290B723E00C473F0 /* main.jsbundle */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-myRN_project.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-myRN_project.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		804A17D929054F9300FBE5B6 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = ../resources/Fonts; sourceTree = "<group>"; };
 		804A17DD2908C1DB00FBE5B6 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
+		80C2198B290B723E00C473F0 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../bundles/assets; sourceTree = "<group>"; };
+		80C2198D290B723E00C473F0 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../bundles/main.jsbundle; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = myRN_project/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-myRN_project-myRN_projectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myRN_project-myRN_projectTests.release.xcconfig"; path = "Target Support Files/Pods-myRN_project-myRN_projectTests/Pods-myRN_project-myRN_projectTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -96,6 +100,8 @@
 		13B07FAE1A68108700A75B9A /* myRN_project */ = {
 			isa = PBXGroup;
 			children = (
+				80C2198B290B723E00C473F0 /* assets */,
+				80C2198D290B723E00C473F0 /* main.jsbundle */,
 				804A17D929054F9300FBE5B6 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -279,6 +285,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				804A17DA29054F9300FBE5B6 /* Fonts in Resources */,
+				80C2198E290B723E00C473F0 /* assets in Resources */,
+				80C2198F290B723E00C473F0 /* main.jsbundle in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
