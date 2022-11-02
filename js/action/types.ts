@@ -33,4 +33,5 @@ export default {
   SEARCH_REFRESH_FAIL: 'SEARCH_REFRESH_FAIL', // 搜索页加载失败
   SEARCH_RESET: 'SEARCH_RESET', //搜索重制数据
 
+  SET_CODE_PUSH_UPDATE_INFO: 'SET_CODE_PUSH_UPDATE_INFO' // codePush 内容
 }

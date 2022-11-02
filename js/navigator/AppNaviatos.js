@@ -93,7 +93,7 @@ export default function App() {
           //是否展示头部标题栏
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="WebViewPage"
           component={WebViewPage}
           //是否展示头部标题栏

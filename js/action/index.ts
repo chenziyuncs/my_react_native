@@ -5,6 +5,7 @@ import { onLoadFavoriteData, updateOnLoadFavoriteData } from './favorite'
 import { loginDispatch, logoutDispatch, saveBoardingNew, logoutMethods } from './user'
 import { onLoadKeysAndLang } from './keysAndLang'
 import { onLoadSearchData, onLoadMoreSearch, onSearchCancel, resetSearchData } from './search'
+import { setCodePushUpdateInfo } from './codePush'
 
 export default {
   onThemeChange,
@@ -25,5 +26,6 @@ export default {
   onLoadSearchData,
   onLoadMoreSearch,
   onSearchCancel,
-  resetSearchData
+  resetSearchData,
+  setCodePushUpdateInfo
 };

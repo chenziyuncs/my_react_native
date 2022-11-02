@@ -20,10 +20,6 @@ function MyPage(props: any){
   const [theme, setTheme] = useState(props.theme.themeColor.themeColor)
   useEffect(() => {
   })
-  const [statusBar, setStatusBar] = useState({
-    backgroundColor: props.theme.themeColor.themeColor,
-    barStyle: 'light-content',
-  })
   const _onLoginoutClick = () => {
     const { logoutDispatch, logoutMethods } = props
     // logoutDispatch().then((res: any) => {
@@ -72,7 +68,10 @@ function MyPage(props: any){
   }
   let navigationBar = <NavigationBar
     title={'我的'}
-    statusBar={statusBar}
+    statusBar={{
+      backgroundColor: props.theme.themeColor.themeColor,
+      barStyle: 'light-content',
+    }}
     style={props.theme.themeColor.styles.navBar}
   />
   const getItem = (menu: any) => {

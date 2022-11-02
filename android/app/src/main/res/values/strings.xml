@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">myRN_project</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">SRErqzr8Fa_wWvcwUQhVgqx5voC-n2E2WEqZL</string>
 </resources>

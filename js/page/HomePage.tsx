@@ -9,16 +9,6 @@ import { connect } from 'react-redux';
 import SafeSreaViewPlus from '../common/SafeAreaVIewPlus.js';
 import CustomThemePage from './CustomThemePage';
 import action from '../action';
-// export default (props) => {
-//   //方便其他页面跳转的时候不传navigation
-//   NavigationUtil.navigation = props.navigation;
-//   // return <SafeSreaViewPlus topColor="#2196f3">
-//   //     <DynamicTabNavigator />
-//   //   </SafeSreaViewPlus>
-//   return <SafeAreaView style={{'flex': 1}}>
-//     <DynamicTabNavigator />
-//   </SafeAreaView>
-// }
 class Props {
   navigation: any
   theme: any
@@ -40,17 +30,17 @@ class HomePage extends Component<Props> {
   render () {
     const { theme } = this.props;
     NavigationUtil.navigation = this.props.navigation;
-    return <SafeSreaViewPlus topColor={theme.themeColor.themeColor}>
-     
+    return <SafeSreaViewPlus topColor={theme} >
       <DynamicTabNavigator />
       {this.renderCustomThemePageView()}
+      
       
     </SafeSreaViewPlus>
   }
 }
 
-const mapStateToProps = (state: { theme: { theme: any; customThemeViewVisible: any; }; }) => ({
-  theme: state.theme.theme,
+const mapStateToProps = (state: { theme: { theme: { themeColor: { themeColor: any; }; }; customThemeViewVisible: any; }; }) => ({
+  theme: state.theme.theme.themeColor.themeColor,
   customThemeViewVisible: state.theme.customThemeViewVisible
 })
 const mapStateToHomePage = (dispatch: any) => ({

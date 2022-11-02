@@ -6,6 +6,7 @@ import favorite from './favorite'
 import user from './user'
 import keysAndLang from './keysAndLang'
 import search from './search'
+import codePush from './codePush'
 /**
  * 合并reducer
  */
@@ -16,7 +17,8 @@ const index = combineReducers({
   favorite: favorite,
   user: user,
   keysAndLang,
-  search
+  search,
+  codePush: codePush
 });
 
 export default index;

@@ -21,6 +21,7 @@ class WelcomePage extends Component<Props> {
   timer!: number;
   async doLaunch() {
     const { navigation } = this.props;
+    NavigationUtil.navigation = navigation;
     // const boarding = await getBoarding();
     const { boarding } = this.props;
     this.timer = setTimeout(() => {

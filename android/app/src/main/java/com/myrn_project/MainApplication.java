@@ -12,11 +12,17 @@ import com.facebook.soloader.SoLoader;
 import com.myrn_project.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-
+// 1. 导入CodePush.
+import com.microsoft.codepush.react.CodePush;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
+        // 2. 重写getJSBundleFile 方法让CodePush决定从哪里加载JS
+        @Override
+        protected String getJSBundleFile() {
+          return CodePush.getJSBundleFile();
+        }
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
