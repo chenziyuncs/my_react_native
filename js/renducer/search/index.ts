@@ -64,7 +64,8 @@ export default function onAction(state = defaultState, action: any) {
       return {
         ...state,
         isLoading: false,
-        showText: '搜索'
+        showText: '搜索',
+        showBottomButton: false,
       }
     case Types.SEARCH_RESET:
       return {

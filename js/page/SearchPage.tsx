@@ -30,7 +30,6 @@ function SearchPage (props: any) {
   const [inputKey, setInputKey] = useState('');
   const [keysList, setKeyList] = useState(props.keys.filter((item: any) => item.checked));
   const [searchToken, setSearchToken] = useState(null as any);
-  const [isKeyChange, setIsKeyChange] = useState(false); // 返回上一页判断是否添加，添加返回时请求数据
   const [canLoadMore, setCanLoadMore] = useState(false);
   const [statusBar, setStatusBar] = useState({
     backgroundColor: theme,
@@ -126,7 +125,6 @@ function SearchPage (props: any) {
         Toast.showSecond(callBack, 3000)
       })
     } else {
-      
       onLoadSearchData(toLowerCaseInputKey, pageSize, setSearchToken(new Date().getTime()), keysList, (callBack: any) => {
         console.log(callBack, 'callBack')
         Toast.showSecond(callBack, 3000)
@@ -141,7 +139,8 @@ function SearchPage (props: any) {
     }
     const { onLoadKeysAndLang } = props;
     onLoadKeysAndLang([...[keysItem], ...props.keys], 'keys')
-    store.dispatch({ type: Types.SEARCH_REFRESH })
+    store.dispatch({ type: Types.SEARCH_CANCEL })
+    setKeyList([...[keysItem], ...props.keys])
     Toast.showSecond('添加成功', 3000)
   }
   return(

@@ -26,13 +26,6 @@ class TrendingPage extends Component {
     super(props)
     this.preLang = this.props.keysAndLang.lang
   }
-  componentDidMount () {
-    const { onLoadKeysAndLang } = this.props;
-    
-    if (this.props.keysAndLang.lang.length === 0) {
-      onLoadKeysAndLang([] ,'lang')
-    }
-  }
   renderTitleView() {
     return <View>
       <TouchableOpacity

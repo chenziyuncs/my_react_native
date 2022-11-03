@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, View, StyleSheet } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
 // IOS下的回弹效果
 const bouncesDefault = false
 interface Props {
@@ -16,17 +15,8 @@ export default class UpdateScrollView extends Component<Props> {
   }
 
   render() {
-    console.log(DeviceInfo.getVersion(), 'getversion')
     const { codePushUpdateInfo, isShowStaticTxt } = this.props
     if (!codePushUpdateInfo && !codePushUpdateInfo.description) return null
-    // if (!codePushUpdateInfo) return null
-    // let descriptionInfo
-    // try {
-    //   descriptionInfo = JSON.parse(codePushUpdateInfo.description)
-    // } catch (e) {
-    //   console.log(e)
-    //   descriptionInfo = {}
-    // }
     if (codePushUpdateInfo) {
       return (
         <ScrollView bounces={bouncesDefault} style={styles.scrollViewWrapper}>

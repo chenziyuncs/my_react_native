@@ -23,13 +23,6 @@ class PopularPage extends Component {
     super(props)
     this.preKeys = this.props.keysAndLang.keys
   }
-  componentDidMount() {
-    const { onLoadKeysAndLang } = this.props;
-    if (this.props.keysAndLang.keys.length === 0) {
-      onLoadKeysAndLang([], 'keys')
-    }
-    
-  }
   _renderRightButton () {// 显示右边搜索框按钮
     const theme = this.props.theme.themeColor.themeColor
     return <TouchableOpacity

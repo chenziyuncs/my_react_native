@@ -17,30 +17,6 @@ import UpdatePops from './common/UpdatePops/UpdatePops';
 let codePushOptions = { checkFrequency: CodePush.CheckFrequency.MANUAL }
 const App = () => {
   const App = AppNavigator();
-  useEffect(() => {
-    // CodePush.checkForUpdate().then(update => {
-    //   console.log(update, 111)
-    //   // if (update) {
-        
-    //   // }
-    //   Alert.alert(
-    //     '检测到应用有新的更新',
-    //     '是否立即更新您的应用并重启',
-    //     [
-    //       {
-    //         text: '取消', onPress: () => {
-    //         }
-    //       },
-    //       {
-    //         text: '确定',
-    //         onPress: () => {
-    //           console.log('点击了更新当前版本按钮')
-    //         }
-    //       }
-    //     ]
-    //   )
-    // })
-  })
   /**
    * 将store传递给App框架
    */
