@@ -58,6 +58,11 @@ export const MORE_MENU = {
     name: '分享',
     icons: Ionicons,
     icon: 'md-share'
+  },
+  Carousel: {
+    name: '轮播图',
+    icons: Ionicons,
+    icon: 'md-copy-outline'
   }
 
 }

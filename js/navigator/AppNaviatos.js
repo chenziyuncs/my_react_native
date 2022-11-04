@@ -14,6 +14,7 @@ import SearchPage from '../page/SearchPage'
 import SortKeyPage from '../page/SortKeyPage'
 import WelcomePage from '../page/WelcomePage'
 import WebViewPage from '../page/WebViewPage.tsx'
+import CarouselPage from '../page/CarouselPage.tsx'
 //创建导航器
 const Stack = createNativeStackNavigator();
 //在这里配置除Tab页以外的页面
@@ -96,6 +97,12 @@ export default function App() {
         <Stack.Screen
           name="WebViewPage"
           component={WebViewPage}
+          //是否展示头部标题栏
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CarouselPage"
+          component={CarouselPage}
           //是否展示头部标题栏
           options={{ headerShown: false }}
         />

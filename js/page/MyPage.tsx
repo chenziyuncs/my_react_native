@@ -42,6 +42,9 @@ function MyPage(props: any){
           url: 'https://coding.m.imooc.com/classindex.html?cid=304'
         }
         break;
+      case MORE_MENU.Carousel:
+        routeName = 'CarouselPage'
+        break;
       case MORE_MENU.About:
         routeName = 'AboutPage'
         break;
@@ -104,6 +107,9 @@ function MyPage(props: any){
         <View style={GlobalStyles.line}></View>
         {/*语言排序 */}
         {getItem(MORE_MENU.Sort_Language)}
+        <View style={GlobalStyles.line}></View>
+        {/*轮播图 */}
+        {getItem(MORE_MENU.Carousel)}
         {/*最热管理 */}
         <Text style={styles.groupTitle}>最热管理</Text>
         {/*自定义标签 */}
