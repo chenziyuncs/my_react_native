@@ -10,10 +10,9 @@ import { PersistGate } from 'redux-persist/lib/integration/react'
 import PopUp from './common/PopUp'
 import PopUpsService from './util/PopUpservice'
 import CodePush from 'react-native-code-push'
-import {
-  Alert
-} from 'react-native'
+import Loading from './common/Loading'
 import UpdatePops from './common/UpdatePops/UpdatePops';
+import LoadingService from './util/LoadingService'
 let codePushOptions = { checkFrequency: CodePush.CheckFrequency.MANUAL }
 const App = () => {
   const App = AppNavigator();
@@ -41,6 +40,7 @@ const App = () => {
         persistor={persistor}
         >
           {App}
+          <Loading ref={(LoadingRef: any) => LoadingService.setTopLevelLoading(LoadingRef) } />
           <PopUp ref={(PopRef: any) => PopUpsService.setTopLevelPop(PopRef)}></PopUp>
           <UpdatePops />
       </PersistGate>

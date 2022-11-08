@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CodePush from 'react-native-code-push'
 import { connect } from 'react-redux'
 import PopUps from '../PopUp'
-import PopUpservice, { hidePop, showPop } from '../../util/PopUpservice'
+import PopUpservice, { hidePop, showPop } from '../../util/PopUpsUpdateService'
 import UpdateScrollView from './Components/UpdateScrollView'
 import action from '../../action'
 import NavigationUtil from '../../navigator/NavigationUtil';
@@ -39,10 +39,6 @@ class UpdatePops extends Component<Props> {
               isNeedUpdate: true
             })
           }
-          // this.props.setCodePushUpdateInfo({
-          //   ...update,
-          //   isNeedUpdate: true
-          // })
           showPop({
             confirmButtonTxt: '确定',
             confirmPress: () => {

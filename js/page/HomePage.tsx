@@ -45,8 +45,6 @@ class HomePage extends Component<Props> {
     return <SafeSreaViewPlus topColor={theme} >
       <DynamicTabNavigator />
       {this.renderCustomThemePageView()}
-      
-      
     </SafeSreaViewPlus>
   }
 }

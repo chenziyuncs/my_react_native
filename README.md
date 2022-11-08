@@ -16,7 +16,7 @@
 
 # 安卓codepush更新
 ## appcenter codepush release-react -a 76058789-qq.com/RN-android
-## 发布带有更改日志的强制更新 appcenter codepush release-react -a 76058789-qq.com/RN-android  -m --description "Modified the header color"
+## 发布带有更改日志的强制更新 appcenter codepush release-react -a 76058789-qq.com/RN-android  -m --description "更新内容"
 
 # 安卓打包应用
 ## cd android && ./gradlew assembleRelease
