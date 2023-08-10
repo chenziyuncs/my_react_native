@@ -7,17 +7,18 @@ import {
   TouchableOpacity,
   ScrollView
 } from 'react-native'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux';
 import action from '../action';
-import NavigationUtil from '../navigator/NavigationUtil.js'
+import NavigationUtil from '../navigator/NavigationUtil.js';
 import NavigationBar from '../common/NavigationBar';
-import { MORE_MENU } from '../common/More_menu'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import GlobalStyles from '../config/GlobalStyles'
+import { MORE_MENU } from '../common/More_menu';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import GlobalStyles from '../config/GlobalStyles';
 import ViewUtil from '../util/ViewUtil';
 
 function MyPage(props: any){
-  const [theme, setTheme] = useState(props.theme.themeColor.themeColor)
+  // const [theme, setTheme] = useState(props.theme.themeColor.themeColor);
+  // const stateTheme = useSelector((state: any) => state.theme.theme)
   useEffect(() => {
   })
   const _onLoginoutClick = () => {
@@ -34,6 +35,7 @@ function MyPage(props: any){
   const _onClick = (menu: any) => {
     let routeName: string | null = null;
     let params = {theme: props.theme.themeColor.themeColor} as any;
+    console.log(menu, 'menu')
     switch (menu) {
       case MORE_MENU.Tutorial:
         routeName = 'WebViewPage'
@@ -50,6 +52,9 @@ function MyPage(props: any){
         break;
       case MORE_MENU.About_Author:
         routeName = 'AboutMePage'
+        break;
+      case MORE_MENU.Language:
+        routeName = 'LanguagePage'
         break;
       case MORE_MENU.Custom_Language:
       case MORE_MENU.Custom_Key:
@@ -128,8 +133,10 @@ function MyPage(props: any){
         {/*关于作者 */}
         {getItem(MORE_MENU.About_Author)}
         <View style={GlobalStyles.line}></View>
-         {/*反馈 */}
+        {/*反馈 */}
         {getItem(MORE_MENU.Feedback)}
+         {/* 切换语言 */}
+         {getItem(MORE_MENU.Language)}
 
         <TouchableOpacity style={[styles.confirmButton, { backgroundColor: props.theme.themeColor.themeColor }]} onPress={() => {
           _onLoginoutClick();

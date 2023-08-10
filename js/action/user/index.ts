@@ -1,6 +1,5 @@
 import Types from '../types'
 import { loginUser, logout, loginBoarding } from '../../api/user'
-
 export const setToeken = (token: string) => ({ type: Types.SET_TOKEN, token})
 export const setBoarding = (boarding: string) => ({ type: Types.KEY_BOADRDING_PASS, boarding})
 // 登录操作，获取token，以及用户信息
@@ -44,16 +43,16 @@ export function saveBoardingNew (userName: string, password: string) {
     const formData = new FormData();
     formData.append('userName', userName);
     formData.append('password', password);
-    loginBoarding(formData).then((res: any) => {
+    return loginBoarding(formData).then((res: any) => {
       const { code, data, msg } = res;
       if (code === 0) {
         dispatch(setBoarding(data))
         resolve(res);
       } else {
-        reject(res);
+        resolve(res);
       }
     }).catch((e: any) => {
-      reject(e)
+      reject(e);
     })
   }) 
 }

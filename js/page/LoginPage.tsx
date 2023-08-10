@@ -9,7 +9,7 @@ import {
 import NavigationUtil from '../navigator/NavigationUtil'
 import { connect } from 'react-redux'
 import actions from '../action'
-
+import Toast from '../common/Toast'
 function loginPage (props: any):any {
   const { navigation } = props;
   const [userName, setUserName] = useState('');
@@ -25,6 +25,8 @@ function loginPage (props: any):any {
     saveBoardingNew(userName, password).then((res: any) => {
       if (res.code === 0) {
         NavigationUtil.resetToHomePage({navigation});
+      } else {
+        Toast.showSecond(`${res.msg}`, 3000)
       }
     })
     // LoginDao.getInstance().login(userName, password).then((res) => {

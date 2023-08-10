@@ -63,6 +63,11 @@ export const MORE_MENU = {
     name: '轮播图',
     icons: Ionicons,
     icon: 'md-copy-outline'
+  },
+  Language: {
+    name: '切换App语言',
+    icons: Octicons,
+    icon: 'smiley'
   }
 
 }

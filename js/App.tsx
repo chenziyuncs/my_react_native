@@ -13,6 +13,7 @@ import CodePush from 'react-native-code-push'
 import Loading from './common/Loading'
 import UpdatePops from './common/UpdatePops/UpdatePops';
 import LoadingService from './util/LoadingService'
+import './i18n'
 let codePushOptions = { checkFrequency: CodePush.CheckFrequency.MANUAL }
 const App = () => {
   const App = AppNavigator();
