@@ -35,7 +35,6 @@ function MyPage(props: any){
   const _onClick = (menu: any) => {
     let routeName: string | null = null;
     let params = {theme: props.theme.themeColor.themeColor} as any;
-    console.log(menu, 'menu')
     switch (menu) {
       case MORE_MENU.Tutorial:
         routeName = 'WebViewPage'
@@ -55,6 +54,9 @@ function MyPage(props: any){
         break;
       case MORE_MENU.Language:
         routeName = 'LanguagePage'
+        break;
+      case MORE_MENU.OurComponents:
+        routeName = 'OurComponents'
         break;
       case MORE_MENU.Custom_Language:
       case MORE_MENU.Custom_Key:
@@ -135,8 +137,10 @@ function MyPage(props: any){
         <View style={GlobalStyles.line}></View>
         {/*反馈 */}
         {getItem(MORE_MENU.Feedback)}
-         {/* 切换语言 */}
-         {getItem(MORE_MENU.Language)}
+        {/* 切换语言 */}
+        {getItem(MORE_MENU.Language)}
+        {/* 组件 */}
+        {getItem(MORE_MENU.OurComponents)}
 
         <TouchableOpacity style={[styles.confirmButton, { backgroundColor: props.theme.themeColor.themeColor }]} onPress={() => {
           _onLoginoutClick();

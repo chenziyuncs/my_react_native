@@ -9,9 +9,9 @@ import {
   TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux'; 'react-redux';
-import GlobalStyles from '../config/GlobalStyles'
-import DeviceInfo from 'react-native-device-info'
-import { ThemeFlags } from '../config/ThemeFactory'
+import GlobalStyles from '../config/GlobalStyles';
+import DeviceInfo from 'react-native-device-info';
+import { ThemeFlags } from '../config/ThemeFactory';
 import action from '../action'
 function CustomThemePage (props: any) {
   const _onSelectTheme = (themeKey: any) => {
@@ -33,9 +33,9 @@ function CustomThemePage (props: any) {
     for (let i = 0, keys = Object.keys(ThemeFlags), l = keys.length; i < l; i += 3) {
       const key1 = keys[i], key2 = keys[i + 1], key3 = keys[i + 2];
       views.push(<View key={i} style={{flexDirection: 'row'}}>
-          {_getTheme(key1)}
-          {_getTheme(key2)}
-          {_getTheme(key3)}
+        {_getTheme(key1)}
+        {_getTheme(key2)}
+        {_getTheme(key3)}
       </View>);
     }
     return views;
@@ -46,7 +46,7 @@ function CustomThemePage (props: any) {
       transparent={true}
       visible={props.visible}
       onRequestClose={() => { // 在 ‘Android’ 平台，必需调用此函数  被销毁时会调用此函数
-          props.onClose();
+        props.onClose();
       }}
     >
       <View style={styles.modalContainer}>

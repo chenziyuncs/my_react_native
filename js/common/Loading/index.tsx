@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     backgroundColor: colorInfo.loadingInnerBgColor,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   loadingTxt: {
     textAlign: 'center',

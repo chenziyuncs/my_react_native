@@ -24,6 +24,7 @@ import store from '../store'
 import Types from '../action/types'
 let flagIndex = 1
 const pageSize = 10
+// let canLoadMore = false
 function SearchPage (props: any) {
   const [theme, useTheme] = useState(props.route.params.theme);
   const [backPress, setBackPress] = useState(new BackPressComponent({ backPress: () =>  _onBackPress()}));
@@ -116,6 +117,12 @@ function SearchPage (props: any) {
     const { resetSearchData } = props;
     resetSearchData();
   }, [])
+  useEffect(() => {
+    if (canLoadMore) {
+      _loadData(true);
+      setCanLoadMore(false);
+    }
+  }, [canLoadMore])
   const _loadData = (flag: boolean) => {
     const { onLoadSearchData, onLoadMoreSearch } = props
     const findKey = props.keys.find((item: any) => {return item.name.toLocaleLowerCase() === inputKey.toLocaleLowerCase()})
@@ -169,13 +176,15 @@ function SearchPage (props: any) {
             setTimeout(() => {
               if (canLoadMore) {//fix 滚动时两次调用onEndReached
                 _loadData(true);
-                setCanLoadMore(false);
+                // canLoadMore = false;
+                setCanLoadMore(false)
               }
             }, 100);
           }}
           onEndReachedThreshold={0.5}
           onMomentumScrollBegin={() => {
             setCanLoadMore(true); //fix 初始化时页调用onEndReached的问题
+            // canLoadMore = true
           }}
         />
         {props.search.showBottomButton ? <TouchableOpacity style={styles.addButton} onPress={() => _bottomButton()}>

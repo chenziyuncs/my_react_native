@@ -40,7 +40,7 @@ function AboutMePage(props: any) {
       let url = `mailto://${menu.account}`
       Linking.canOpenURL(url).then((res: boolean) => {
         if (!res) {
-          console.log('无法处理这个邮箱地址:' + url)
+          Toast.showSecond(`无法处理这个邮箱地址:url`, 3000)
         } else {
           Linking.openURL(url);
         }

@@ -68,6 +68,11 @@ export const MORE_MENU = {
     name: '切换App语言',
     icons: Octicons,
     icon: 'smiley'
+  },
+  OurComponents: {
+    name: '组件',
+    icons: Ionicons,
+    icon: 'ios-color-palette'
   }
 
 }

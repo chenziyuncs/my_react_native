@@ -16,6 +16,7 @@ import WelcomePage from '../page/WelcomePage'
 import WebViewPage from '../page/WebViewPage.tsx'
 import CarouselPage from '../page/CarouselPage.tsx'
 import LanguagePage from '../page/LanguagePage.tsx'
+import OurComponents from '../page/OurComponents.tsx';
 //创建导航器
 const Stack = createNativeStackNavigator();
 //在这里配置除Tab页以外的页面
@@ -110,6 +111,11 @@ export default function App() {
         <Stack.Screen
           name="LanguagePage"
           component={LanguagePage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OurComponents"
+          component={OurComponents}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

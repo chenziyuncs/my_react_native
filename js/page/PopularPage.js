@@ -18,6 +18,7 @@ import NavigationBar from '../common/NavigationBar';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavigationUtil from '../navigator/NavigationUtil'
 import { hideLoading, showLoading } from '../util/LoadingService.ts'
+import {FLAG_STORAGE} from '../expand/dao/DataStore';
 flagIndex = 1
 class PopularPage extends Component {
   constructor (props) {
@@ -131,10 +132,16 @@ class PopularTab extends Component {
       projectModel={data.item}
       theme={theme}
       onSelect={() => {
-        showLoading();
-        setTimeout(() => {
-          hideLoading(1)
-        }, 1500)
+        // showLoading();
+        // setTimeout(() => {
+        //   hideLoading(1)
+        // }, 1500)
+        NavigationUtil.goPage({
+          theme,
+          projectModel: data.item,
+          flag: FLAG_STORAGE.flag_popular,
+          theme: theme.themeColor
+        }, 'DetailPage');
       }}
       onFavorite={(item, isFavorite) => {
         this._onFavorites(item, isFavorite)

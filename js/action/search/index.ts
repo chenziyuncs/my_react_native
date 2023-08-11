@@ -111,7 +111,7 @@ export function onLoadMoreSearch (inputKey: string, pageIndex: number, pageSize:
         dispatch({
           type: Types.SEARCH_LOAD_MORE_SUCCESS,
           pageIndex: pageIndex,
-          projectModels: Utils.removeDulplicates(projectModels.concat(items), 'id') ,
+          projectModels: Utils.removeDulplicates(projectModels.concat(items), 'id'),
           hideLoadingMore: true
         })
       }

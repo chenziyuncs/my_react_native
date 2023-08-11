@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Input, ConfirmButton, Tips, NavBar } from '../common/LoginComponent'
 
 import {
@@ -10,23 +10,30 @@ import NavigationUtil from '../navigator/NavigationUtil'
 import { connect } from 'react-redux'
 import actions from '../action'
 import Toast from '../common/Toast'
+import Loading from '../common/Loading'
 function loginPage (props: any):any {
+  const LoadingRef = useRef<any>(null);
   const { navigation } = props;
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState('Lukas');
-  const [helpUrl, setHelpUrl] = useState('https://www.baidu.com');
+  const [helpUrl] = useState('https://www.baidu.com');
   const onLogin = () => {
     if (userName === '' || password === '') {
       setMsg('用户名或者密码不能为空')
       return;
     }
     const { saveBoardingNew } = props;
+    LoadingRef.current.showLoading();
     saveBoardingNew(userName, password).then((res: any) => {
       if (res.code === 0) {
-        NavigationUtil.resetToHomePage({navigation});
+        LoadingRef.current.hideLoading(2);
+        setTimeout(() => {
+          NavigationUtil.resetToHomePage({navigation});
+        }, 1000)
       } else {
-        Toast.showSecond(`${res.msg}`, 3000)
+        LoadingRef.current.hideLoading(1, `${res.msg}`);
+        // Toast.showSecond(`${res.msg}`, 3000)
       }
     })
     // LoginDao.getInstance().login(userName, password).then((res) => {
@@ -69,6 +76,7 @@ function loginPage (props: any):any {
         <ConfirmButton bgStyle={props.theme.styles.navBar} title={'登录'} onClick={onLogin}/>
         <Tips bgStyle={props.theme.styles.navBar} msg={msg} helpUrl={helpUrl} />
         {/* <ConfirmButton title={'查询token'} onClick={checkToken}/> */}
+        <Loading ref={LoadingRef} />
       </View>
     </SafeAreaView>
   )
