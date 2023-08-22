@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Swiper from 'react-native-swiper';
 import {
   View,
   StyleSheet,
   Text,
   Dimensions,
-  TouchableOpacity,
   Image
 } from 'react-native';
 import { connect } from 'react-redux';

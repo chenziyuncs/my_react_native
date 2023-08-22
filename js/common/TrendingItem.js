@@ -3,11 +3,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  GestureResponderEvent,
   StyleSheet,
   Image
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import HTMLView from 'react-native-htmlview';
 import BaseItem from './BaseItem'
 

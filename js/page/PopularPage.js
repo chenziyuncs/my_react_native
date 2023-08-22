@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-  FlatList,
+  // FlatList,
   StyleSheet,
-  Text,
   View,
-  ActivityIndicator,
-  RefreshControl,
   TouchableOpacity
+  // Text,
+  // ActivityIndicator,
+  // RefreshControl
 } from 'react-native';
 import PopularItem from '../common/PopularItem'
 import { connect } from 'react-redux';
@@ -17,8 +17,9 @@ import Toast from '../common/Toast/index';
 import NavigationBar from '../common/NavigationBar';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavigationUtil from '../navigator/NavigationUtil'
-import { hideLoading, showLoading } from '../util/LoadingService.ts'
+// import { hideLoading, showLoading } from '../util/LoadingService.ts'
 import {FLAG_STORAGE} from '../expand/dao/DataStore';
+import FlatList from '../common/FlatList'
 flagIndex = 1
 class PopularPage extends Component {
   constructor (props) {
@@ -119,23 +120,12 @@ class PopularTab extends Component {
     return storeList;
   }
 
-  _onFavorites (data, isFavorite) {// 收藏
-    data.isFavorite = isFavorite
-    const { updatePopularDataItem } = this.props
-
-    updatePopularDataItem('popular', this.storeName, [data], 'CLICK_POUPULAR_FAVORITE')
-  }
-
-  renderItem(data, theme) {
-    const {item} = data;
+  renderItem(data) {
+    const { theme } = this.props
     return <PopularItem
       projectModel={data.item}
       theme={theme}
       onSelect={() => {
-        // showLoading();
-        // setTimeout(() => {
-        //   hideLoading(1)
-        // }, 1500)
         NavigationUtil.goPage({
           theme,
           projectModel: data.item,
@@ -149,19 +139,11 @@ class PopularTab extends Component {
     />
   }
 
-  genIndicator() {// 底部加载更多
-    return this._store().hideLoadingMore ? null :
-      <View style={styles.indicatorContainer}>
-        <ActivityIndicator
-          style={styles.indicator}
-        />
-        <Text>正在加载更多</Text>
-      </View>
-  }
-  _listEmpty (data) {// 无数据显示状态
-    return <View style={{flex: 1, marginTop: 100, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>暂无数据</Text>
-    </View>
+  _onFavorites (data, isFavorite) {// 收藏
+    data.isFavorite = isFavorite
+    const { updatePopularDataItem } = this.props
+
+    updatePopularDataItem('popular', this.storeName, [data], 'CLICK_POUPULAR_FAVORITE')
   }
 
   render() {
@@ -169,39 +151,11 @@ class PopularTab extends Component {
     return (
       <View style={styles.containerPopularTab}>
         <FlatList
-          data={storeList.projectModels}
-          // getItemLayout={(data, index) => ( // 固定高度才能这么设置，否则会有问题
-          //   { length: 380, offset: 380 * index, index }
-          // )}
-          ListEmptyComponent={(data) => this._listEmpty(data)}
-          initialNumToRender={5}
-          renderItem={data => this.renderItem(data, this.props.theme)}
-          keyExtractor={item => "" + item.id + ++flagIndex}
-          refreshControl={
-            <RefreshControl
-              title={'Loading'}
-              titleColor={'red'}
-              colors={['red']}
-              refreshing={storeList.isLoading}
-              onRefresh={() => this.loadData(false)}
-              tintColor={'red'}
-            />
-          }
-          ListFooterComponent={() => this.genIndicator()}
-          onEndReached={() => {
-            setTimeout(() => {
-              if (this.canLoadMore) {//fix 滚动时两次调用onEndReached
-                this.loadData(true);
-                this.canLoadMore = false;
-              }
-            }, 100);
-          }}
-          onEndReachedThreshold={0.5}
-          onMomentumScrollBegin={() => {
-            this.canLoadMore = true; //fix 初始化时页调用onEndReached的问题
-          }}
+          storeList={storeList} 
+          loadData={this.loadData.bind(this)}
+          _onFavorites={this._onFavorites.bind(this)}
+          renderItem={this.renderItem.bind(this)}
         />
-        {/* <Toast message={'Toast 显示内容电饭锅电饭锅呜呜呜'} /> */}
       </View>
     );
   }
